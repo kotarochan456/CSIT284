@@ -9,7 +9,7 @@ import android.widget.TextView
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
-class DashboardScreenActivity : AppCompatActivity() {
+class DashboardScreenActivity : Activity() {
 
     // Declaring variables using camelCase
     private lateinit var imageviewProfilePicture: ImageView
@@ -46,9 +46,13 @@ class DashboardScreenActivity : AppCompatActivity() {
     private fun navigateToProfile() {
         val intentProfile = Intent(this, ProfileScreenActivity::class.java)
 
-        // Pass the username currently displayed on the Dashboard to the Profile
+        // Pass the username currently displayed on the Dashboard
         val currentUsername = textviewUser.text.toString().replace("Welcome ", "")
         intentProfile.putExtra("username", currentUsername)
+
+        // ADD THIS: Get the password that was sent to the Dashboard and pass it to Profile
+        val receivedPassword = intent.getStringExtra("password")
+        intentProfile.putExtra("password", receivedPassword)
 
         startActivity(intentProfile)
     }
